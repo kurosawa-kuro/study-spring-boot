@@ -82,7 +82,7 @@ curl https://start.spring.io/starter.zip \
 
 | 目的                                       | 推奨 ID                                                                                                                     | メモ                                                                       |
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| **PoC / 個人開発**                           | web, data-jpa, h2, springdoc-openapi, actuator, validation, lombok, devtools                                              | 最小 REST + DB + Swagger UI                                                |
+| **PoC / 個人開発**                           | web, data-jpa, h2, springdoc-openapi, security, actuator, validation, lombok, devtools                                    | 最小 REST + DB + Swagger UI + Login 認証                                     |
 | **クラウド (AWS) PoC**                       | web, data-jpa, h2, springdoc-openapi, validation, security, oauth2-client, actuator, aws, micrometer-registry-cloudwatch2 | Cognito (OIDC) 認証 + CloudWatch 連携                                        |
 | **クラウド (AWS) Microservice**              | web, data-jpa, h2, springdoc-openapi, validation, security, oauth2-client, actuator, aws, micrometer-registry-cloudwatch2 | Cognito 認証 + CloudWatch 連携 (本番構成想定)                                      |
 | **クラウド (AWS) Microservice k8s × GitOps** | web, actuator, prometheus, cloud-kubernetes                                                                               | Liveness/Readiness, Prometheus メトリクス<br>※Grafana・Loki は Helm Chart で別途導入 |
