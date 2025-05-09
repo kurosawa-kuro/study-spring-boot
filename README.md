@@ -32,19 +32,19 @@
 
 ## 3. 依存関係カテゴリ & 代表スターター
 
-| カテゴリ                    | 代表 ID                                                  | 生成される starter / ライブラリ                  | 用途概要              |
-| ----------------------- | ------------------------------------------------------ | -------------------------------------- | ----------------- |
-| **Developer Tools**     | devtools, lombok, configuration-processor              | Hot Reload, アノテーション処理補助                | 開発効率              |
-| **Core**                | actuator, validation, aot                              | Actuator, Jakarta Validation, AOT      | 運用可観測性・入力検証       |
-| **Web**                 | web, webflux, graphql, websocket                       | MVC (Tomcat), WebFlux (Netty), GraphQL | HTTP / GraphQL 通信 |
-| **Template Engines**    | thymeleaf, mustache, freemarker                        | 各テンプレートエンジン                            | サーバサイド HTML       |
-| **Security**            | security, oauth2-client, oauth2-resource-server        | Spring Security                        | 認証・認可             |
-| **SQL**                 | data-jpa, jdbc, r2dbc, flyway, postgresql, mysql       | Driver・Migration ツール                   | RDB               |
-| **NoSQL**               | data-mongodb, data-redis, data-cassandra, dynamodb     | Spring Data 系                          | 分散 / キー値 DB       |
-| **Messaging**           | kafka, rabbitmq, pulsar, batch                         | Kafka, AMQP, Pulsar, Batch             | 非同期処理・バッチ         |
-| **Cloud**               | cloud-gateway, cloud-config-client, eureka-client, aws | Spring Cloud                           | マイクロサービス周辺        |
-| **Observability / Ops** | prometheus, wavefront, zipkin, otel                    | Micrometer, OTEL                       | メトリクス・分散トレース      |
-| **Testing**             | testcontainers, spring-restdocs, cucumber              | コンテナ統合テスト、API ドキュメント                   | テスト自動化            |
+| カテゴリ                    | 代表 ID                                                  | 生成される starter / ライブラリ                                                               | 用途概要              |
+| ----------------------- | ------------------------------------------------------ | ----------------------------------------------------------------------------------- | ----------------- |
+| **Developer Tools**     | devtools, lombok, configuration-processor              | Hot Reload, アノテーション処理補助                                                             | 開発効率              |
+| **Core**                | actuator, validation, aot                              | Actuator, Jakarta Validation, AOT                                                   | 運用可観測性・入力検証       |
+| **Web**                 | web, webflux, graphql, websocket                       | MVC (Tomcat), WebFlux (Netty), GraphQL                                              | HTTP / GraphQL 通信 |
+| **Template Engines**    | thymeleaf, mustache, freemarker                        | 各テンプレートエンジン                                                                         | サーバサイド HTML       |
+| **Security**            | security, oauth2-client, oauth2-resource-server        | Spring Security                                                                     | 認証・認可             |
+| **SQL**                 | data-jpa, jdbc, r2dbc, flyway, postgresql, mysql       | Driver・Migration ツール                                                                | RDB               |
+| **NoSQL**               | data-mongodb, data-redis, data-cassandra, dynamodb     | Spring Data 系                                                                       | 分散 / キー値 DB       |
+| **Messaging**           | `activemq`, `kafka`, `rabbitmq`, `pulsar`, `batch`     | Spring JMS (ActiveMQ Classic/Artemis), Spring Kafka, AMQP (RabbitMQ), Pulsar, Batch | 非同期・バッチ           |
+| **Cloud**               | cloud-gateway, cloud-config-client, eureka-client, aws | Spring Cloud                                                                        | マイクロサービス周辺        |
+| **Observability / Ops** | prometheus, wavefront, zipkin, otel                    | Micrometer, OTEL                                                                    | メトリクス・分散トレース      |
+| **Testing**             | testcontainers, spring-restdocs, cucumber              | コンテナ統合テスト、API ドキュメント                                                                | テスト自動化            |
 
 (メタデータ参照: Spring Initializr Reference Guide) citeturn0search1
 
@@ -80,16 +80,14 @@ curl https://start.spring.io/starter.zip \
 
 ## 6. ユースケース別スターターセット
 
-| 目的                 | 推奨 ID                                                                                            | メモ                             |
-| ------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------ |
-| **PoC / 個人開発**     | web, data-jpa, h2, springdoc-openapi, actuator, validation, lombok, devtools                     | 最小 REST + DB + Swagger UI      |
-| **クラウド (AWS) PoC** | web, data-jpa, h2, springdoc-openapi, validation, actuator, aws, micrometer-registry-cloudwatch2 | CloudWatch 連携                  |
-| **k8s × GitOps**   | web, actuator, prometheus, cloud-kubernetes                                                      | Liveness/Prometheus エンドポイント即有効 |
-| **ブロックチェーン API**   | webflux, validation, springdoc-openapi                                                           | 高スループット REST + Swagger         |
+| 目的                                       | 推奨 ID                                                                                            | メモ                             |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------ |
+| **PoC / 個人開発**                           | web, data-jpa, h2, springdoc-openapi, actuator, validation, lombok, devtools                     | 最小 REST + DB + Swagger UI      |
+| **クラウド (AWS) PoC**                       | web, data-jpa, h2, springdoc-openapi, validation, actuator, aws, micrometer-registry-cloudwatch2 | CloudWatch 連携                  |
+| **クラウド (AWS) Microservice**              | web, data-jpa, h2, springdoc-openapi, validation, actuator, aws, micrometer-registry-cloudwatch2 | CloudWatch 連携 + 本番構成想定         |
+| **クラウド (AWS) Microservice k8s × GitOps** | web, actuator, prometheus, cloud-kubernetes                                                      | Liveness/Prometheus エンドポイント即有効 |
 
----
-
-## 7. まとめ & 次のステップ
+## 7. まとめ & 次のステップ まとめ & 次のステップ
 
 1. **検索 → トグル → Selected** の 3 ステップで依存関係を決定
 2. *starter* の概念を理解しておくと依存解決がシンプル
@@ -99,3 +97,118 @@ curl https://start.spring.io/starter.zip \
 ---
 
 > **Next Try**: `web`, `data-jpa`, `prometheus` を選んでプロジェクト生成 → IDE インポート → `./mvnw spring-boot:run` で動作確認してみましょう。
+
+---
+
+## ActiveMQ (Classic & Artemis) サポートの変遷と選択指針
+
+Spring Boot 3.0 では `jakarta.jms` への全面移行に伴い **ActiveMQ Classic**（5.x 系）のクライアントが追随しておらず Starter が一旦削除されました。しかし **5.18.0 以降**でジャカルタ対応クライアントがリリースされ、**Boot 3.2** で Starter (`spring-boot-starter-activemq`) が復活、Boot 3.3・3.4 系では **Initializr の Messaging カテゴリに `activemq` が表示** されます。
+
+| Spring Boot バージョン | ActiveMQ Classic          | ActiveMQ Artemis                  |
+| ----------------- | ------------------------- | --------------------------------- |
+| 2.x               | ✅ (`javax.jms`)           | ✅ (`jakarta.jms`)                 |
+| 3.0–3.1           | ❌ Starter削除               | ✅ (`spring-boot-starter-artemis`) |
+| 3.2+              | ✅ `jakarta.jms` クライアントで復活 | ✅ （変わらず）                          |
+
+**選択基準**
+
+* **ActiveMQ Classic (5.x)**: 既存システムの移行や JMS 1.1 ベースの資産が多い場合に依然として有力。5.18+ の Jakarta 対応版を使う。
+* **ActiveMQ Artemis (2.x)**: 次世代ブローカー。高スループット・非ブロッキング IO。Boot が自動で `org.apache.activemq:artemis-*/` を引き込む。
+* **Kafka**: 高いパーティション並列性、大規模データストリーム。K8s／クラウドネイティブに最適。
+* **RabbitMQ (AMQP)**: ルーティングや遅延キューなど多機能で軽量。シンプルな Pub/Sub や RPC に便利。
+* **Pulsar**: マルチテナント、セルフバランス。大規模スケール＋ストレージ分離。
+* **Batch**: Spring Batch をまとめたスターター。ETL ジョブやバッチ処理向け。
+
+### Initializr での追加例
+
+```bash
+curl https://start.spring.io/starter.zip \
+  -d dependencies=web,activemq,actuator \
+  -d name=jms-demo -d javaVersion=21 -o jms-demo.zip
+```
+
+「Messaging 何を選ぶか？」で迷う場合は、\*\*トラフィック特性（低レイテンシ/高スループット）**と**メッセージングパターン（Pub/Sub vs キュー vs ストリーム）\*\*を整理すると決めやすくなります。
+
+---
+
+## 8. NTT 業務向け — ActiveMQ Classic Quick Start
+
+以下は **ActiveMQ Classic 5.18+** をローカル Docker で動かし、Spring Boot (Boot 3.3) アプリから JMS メッセージを送受信する最小構成例です。
+
+### 8.1 依存関係 (`pom.xml`)
+
+```xml
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-activemq</artifactId>
+</dependency>
+<!--     Omit: spring-boot-starter-web 等他のスターター -->
+```
+
+> **Note**: Boot 3.3 で Classic を使う場合、自動で `org.apache.activemq:activemq-client:5.18.x` (Jakarta 対応版) が入ります。
+
+### 8.2 ブローカー起動（Docker Compose）
+
+```yaml
+version: '3.8'
+services:
+  activemq:
+    image: rmohr/activemq:5.18.4-alpine
+    ports:
+      - "61616:61616"   # OpenWire (JMS)
+      - "8161:8161"     # Web Console
+```
+
+アクセス: [http://localhost:8161/](http://localhost:8161/) (初期 ID: admin / admin)
+
+### 8.3 `application.yml`
+
+```yaml
+spring:
+  activemq:
+    broker-url: tcp://localhost:61616
+    user: admin
+    password: admin
+  jms:
+    listener:
+      concurrency: 2-10   # 2 並列で開始しピーク 10 までスケール
+```
+
+### 8.4 コード例
+
+```java
+// Producer
+@RequiredArgsConstructor
+@Service
+public class JmsProducer {
+  private final JmsTemplate jmsTemplate;
+  public void sendOrder(Order payload) {
+    jmsTemplate.convertAndSend("order.queue", payload);
+  }
+}
+
+// Consumer
+@Slf4j
+@Component
+public class OrderListener {
+  @JmsListener(destination = "order.queue")
+  public void receive(Order payload) {
+    log.info("<-- received {}", payload);
+  }
+}
+```
+
+### 8.5 テスト & 運用 Tips
+
+| 項目               | 設定 / ツール                                       | 補足                                       |
+| ---------------- | ---------------------------------------------- | ---------------------------------------- |
+| Integration Test | **Testcontainers** `activemq` モジュール            | `@DynamicPropertySource` で broker URL 注入 |
+| ヘルスチェック          | Actuator `health.jms`                          | `/actuator/health` が `status: UP` になるか確認 |
+| モニタリング           | Web Console, Jolokia + Prometheus JMX Exporter | キューの depth / consumer 数を可視化              |
+
+NTT プロジェクトでは **高い信頼性** と **クリティカルな SLA** が求められるため、
+
+* **DLQ (Dead Letter Queue)** 設定 (`activemq.xml`) と
+* **赤/黄/緑アラート** を Grafana などで可視化
+
+を推奨します。Artemis への将来的な置換を見据える場合でも、Spring の抽象化 (`JmsTemplate`, `@JmsListener`) レイヤを保つことでコード変更は最小化できます。
