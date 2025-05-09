@@ -78,22 +78,33 @@ curl https://start.spring.io/starter.zip \
 
 ---
 
-\$0
+## 6. ユースケース別スターターセット
 
-> **AWS Cognito Integration**
-> AWS Cognito は OIDC 準拠の IdP なので、Spring Security の `oauth2-client` スターターを追加し、
-> `spring.security.oauth2.client.registration.cognito.*` へクライアント ID/シークレットを設定します。
-> Token 取得後は標準の `Bearer` ヘッダで API 保護が可能です。
-> \| 目的 | 推奨 ID | メモ |
-> \| --- | --- | --- |
-> \| **PoC / 個人開発** | web, data-jpa, h2, springdoc-openapi, actuator, validation, lombok, devtools | 最小 REST + DB + Swagger UI |
-> \| **クラウド (AWS) PoC** | web, data-jpa, h2, springdoc-openapi, validation, security, oauth2-client, actuator, aws, micrometer-registry-cloudwatch2 | CloudWatch 連携 + Cognito (OAuth2/OIDC) 認証 |
-> \| **クラウド (AWS) Microservice** | web, data-jpa, h2, springdoc-openapi, validation, security, oauth2-client, actuator, aws, micrometer-registry-cloudwatch2 | Cognito 認証 + CloudWatch 連携 (本番構成) |
-> \| **クラウド (AWS) Microservice k8s × GitOps** | web, actuator, prometheus, cloud-kubernetes | Liveness/Prometheus エンドポイント即有効 〈外部 Helm: Grafana・Loki〉 |
+| 目的                                       | 推奨 ID                                                                                                                     | メモ                                                                       |
+| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **PoC / 個人開発**                           | web, data-jpa, h2, springdoc-openapi, actuator, validation, lombok, devtools                                              | 最小 REST + DB + Swagger UI                                                |
+| **クラウド (AWS) PoC**                       | web, data-jpa, h2, springdoc-openapi, validation, security, oauth2-client, actuator, aws, micrometer-registry-cloudwatch2 | Cognito (OIDC) 認証 + CloudWatch 連携                                        |
+| **クラウド (AWS) Microservice**              | web, data-jpa, h2, springdoc-openapi, validation, security, oauth2-client, actuator, aws, micrometer-registry-cloudwatch2 | Cognito 認証 + CloudWatch 連携 (本番構成想定)                                      |
+| **クラウド (AWS) Microservice k8s × GitOps** | web, actuator, prometheus, cloud-kubernetes                                                                               | Liveness/Readiness, Prometheus メトリクス<br>※Grafana・Loki は Helm Chart で別途導入 |
 
-> **Grafana & Loki** は Initializr のスターターではなく、**Helm Chart** (`grafana/grafana`, `grafana/loki-stack`) として Kubernetes クラスタに追加するのが一般的です。Spring Boot 側は `prometheus` ID が Micrometer メトリクスをエクスポートし、Grafana でダッシュボード化、Loki でログ検索する構成になります。
+### AWS Cognito Integration
 
-## 7. まとめ & 次のステップ まとめ & 次のステップ まとめ & 次のステップ
+AWS Cognito は OIDC 準拠の IdP です。Spring Security の **`oauth2-client`** スターターを追加し、
+`spring.security.oauth2.client.registration.cognito.*` にクライアント ID とシークレットを設定します。API には `Authorization: Bearer <access_token>` ヘッダを送るだけで保護が機能します。
+
+### Grafana & Loki (Observability Stack)
+
+`prometheus` スターターで Micrometer が Prometheus エンドポイントを公開します。Kubernetes クラスタには Helm Chart:
+
+```sh
+helm repo add grafana https://grafana.github.io/helm-charts
+helm install loki grafana/loki-stack
+helm install grafana grafana/grafana
+```
+
+を適用し、ダッシュボードを作成すれば **メトリクス・ログの可視化** が完成します。
+
+## 7. まとめ & 次のステップ まとめ & 次のステップ まとめ & 次のステップ まとめ & 次のステップ
 
 1. **検索 → トグル → Selected** の 3 ステップで依存関係を決定
 2. *starter* の概念を理解しておくと依存解決がシンプル
