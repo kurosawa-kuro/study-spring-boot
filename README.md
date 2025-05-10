@@ -229,3 +229,27 @@ NTT プロジェクトでは **高い信頼性** と **クリティカルな SLA
 * **赤/黄/緑アラート** を Grafana などで可視化
 
 を推奨します。Artemis への将来的な置換を見据える場合でも、Spring の抽象化 (`JmsTemplate`, `@JmsListener`) レイヤを保つことでコード変更は最小化できます。
+
+### Spring Boot ▶ Microservices ▶ EKS までの学習フェーズ（リファクタリング版）
+
+|#|フェーズ名|ゴール & 技術範囲|完了チェックポイント|
+|---|---|---|---|
+|**0**|**PoC-Zero (メモリ専用)**|_Spring Boot 3_／`spring-boot-starter-web` のみDBなし・`@RestController` がメモリ変数を返すだけ|`GET /ping` が 200 OK|
+|**1**|**PoC-H2 シングル**|H2 (in-memory) 追加JPA + `spring-boot-starter-data-jpa`flyway/liquibase で schema version 管理|`POST /todos`→H2 に行が増える|
+|**2**|**Core Secure PoC**|フェーズ 1 + **Spring Security** (JWT) + **SpringDoc Swagger UI** + **Junit5 / Testcontainers(LocalStack)**|1) Swagger で API 試せる2) Integration Test green|
+|**3**|**Local Microservice**|_Spring Cloud_ (Gateway & Config) + OpenFeignサービス分割 (auth-svc / order-svc など) を **Docker Compose** で起動|Gateway 経由で 2 サービスが通信|
+|**4**|**Cloud PoC (非 k8s)**|**AWS ECS/Fargate** 1 タスク構成RDS (PostgreSQL) or DynamoDB へ接続CloudWatch Logs & X-Ray|GitHub Actions → ECR → ECS Blue/Green|
+|**5**|**Kubernetes on EC2 (Kind/EKS-Small)**|EC2 Linux 上に **kind** で k8s 基礎Spring Boot イメージを `kubectl apply`→IngressHelm Chart 化|`kubectl port-forward` なしで公開 URL|
+|**6**|**EKS Microservice & GitOps**|**EKS** クラスタに Helm → Argo CDIstio Ingress (optional)・Prometheus/Loki/GrafanaSecret Store = AWS SSM / IRSA|Argo CD ⬌ Git が自動同期／Grafana ダッシュボードが表示|
+
+#### 学習フローのポイント
+
+1. **0→1→2** で “REST＋DB＋認証＋テスト” の _単体アプリ_ を固める
+    
+2. **3** で _ローカル_ 完結の **マイクロサービス通信** を習得
+    
+3. **4** で _クラウド**だけ**運用_ を経験し、AWS 基本サービスに慣れる
+    
+4. **5** で _k8s のオブジェクト & Helm テンプレ_ に手を動かす
+    
+5. **6** で _EKS + GitOps_ ＝ 本番相当の運用モデルへ
