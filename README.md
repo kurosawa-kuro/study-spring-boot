@@ -16,27 +16,33 @@
 
 — 「① Spring Boot Starter ID」「② 追加ライブラリ（任意）」「③ 主な用途」 の３列構成にしました。
 
-| カテゴリ                      | ① Starter artifactId                                                                                        | ② 追加ライブラリ例                                                                        | ③ 主な用途                        |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------- |
-| **Developer Tools**       | `spring-boot-devtools`                                                                                      | `lombok`, `spring-boot-configuration-processor`                                   | ホットリロード／アノテーション自動生成           |
-| **Core／Runtime**          | `spring-boot-starter-actuator`                                                                              | `jakarta.validation:jakarta.validation-api`, `spring-boot-starter-aot`            | 可観測性（メトリクス・ヘルス）／入力バリデーション／AOT |
-| **Web (MVC)**             | `spring-boot-starter-web`                                                                                   | —                                                                                 | HTTP MVC (Tomcat組み込み)         |
-| **WebFlux**               | `spring-boot-starter-webflux`                                                                               | —                                                                                 | ノンブロッキング HTTP (Reactor Netty) |
-| **GraphQL**               | `spring-boot-starter-graphql`                                                                               | —                                                                                 | GraphQL API                   |
-| **WebSocket**             | `spring-boot-starter-websocket`                                                                             | —                                                                                 | 双方向 WebSocket                 |
-| **Template Engines**      | `spring-boot-starter-thymeleaf`                                                                             | `mustache`, `freemarker`                                                          | サーバサイド HTML                   |
-| **Security**              | `spring-boot-starter-security`                                                                              | `spring-boot-starter-oauth2-client`, `spring-boot-starter-oauth2-resource-server` | 認証・認可／OAuth2                  |
-| **SQL (RDB)**             | `spring-boot-starter-data-jpa`, `spring-boot-starter-jdbc`                                                  | `flyway-core`, `postgresql`, `mysql`                                              | ORM／JDBC／マイグレーション             |
-| **Reactive SQL**          | `spring-boot-starter-data-r2dbc`                                                                            | `r2dbc-postgresql`, `r2dbc-mysql`                                                 | リアクティブ RDB                    |
-| **NoSQL**                 | `spring-boot-starter-data-redis`, `spring-boot-starter-data-mongodb`                                        | `spring-boot-starter-data-cassandra`, `dynamodb-enhanced`                         | 分散／キー値ストア                     |
-| **Messaging**             | `spring-boot-starter-activemq`, `spring-boot-starter-amqp`, `spring-kafka`                                  | `spring-boot-starter-pulsar`, `spring-boot-starter-batch`                         | JMS／RabbitMQ／Kafka／Pulsar／バッチ |
-| **Cloud & Microservices** | `spring-cloud-starter-gateway`, `spring-cloud-starter-config`, `spring-cloud-starter-netflix-eureka-client` | `spring-cloud-starter-aws`                                                        | API Gateway／設定集中／サービス発見       |
-| **Observability / Ops**   | `micrometer-registry-prometheus`, `micrometer-tracing-bridge-otel`                                          | `zipkin-reporter-brave`, `wavefront-spring-boot-starter`                          | メトリクス／分散トレース                  |
-| **Testing**               | `spring-boot-starter-test`                                                                                  | `testcontainers-bom`, `spring-restdocs-mockmvc`, `cucumber-java`                  | 単体・統合テスト／APIドキュメント生成          |
+思考時間: 数秒
 
-> **使いかた**
-> Maven なら `<dependency><groupId>org.springframework.boot</groupId><artifactId>①</artifactId></dependency>` を追加。
-> ②のライブラリは必要に応じて `runtime` / `test` スコープで足してください。
+
+失礼しました。**ActiveMQ （Artemis／Classic）を必須として明示**した最新版に差し替えます。
+――Messaging カテゴリを **“ActiveMQ 専用”** 行として独立させ、それ以外のメッセージブローカは別枠に移動しました。
+
+| カテゴリ                    | ① Starter artifactId                                                                                        | ② 追加ライブラリ例                                                                        | ③ 主な用途                    |
+| ----------------------- | ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------- | ------------------------- |
+| **Developer Tools**     | `spring-boot-devtools`                                                                                      | `lombok`, `spring-boot-configuration-processor`                                   | ホットリロード／アノテ補助             |
+| **Core／Runtime**        | `spring-boot-starter-actuator`                                                                              | `jakarta.validation-api`, `spring-boot-starter-aot`                               | 可観測性／入力バリデーション／AOT        |
+| **Web (MVC)**           | `spring-boot-starter-web`                                                                                   | —                                                                                 | REST HTTP (Tomcat)        |
+| **WebFlux**             | `spring-boot-starter-webflux`                                                                               | —                                                                                 | ノンブロッキング HTTP             |
+| **GraphQL**             | `spring-boot-starter-graphql`                                                                               | —                                                                                 | GraphQL API               |
+| **WebSocket**           | `spring-boot-starter-websocket`                                                                             | —                                                                                 | 双方向 WebSocket             |
+| **Security**            | `spring-boot-starter-security`                                                                              | `spring-boot-starter-oauth2-client`, `spring-boot-starter-oauth2-resource-server` | 認証・認可                     |
+| **SQL (RDB)**           | `spring-boot-starter-data-jpa`, `spring-boot-starter-jdbc`                                                  | `flyway-core`, `postgresql`, `mysql`                                              | ORM／JDBC／マイグレーション         |
+| **Reactive SQL**        | `spring-boot-starter-data-r2dbc`                                                                            | `r2dbc-postgresql`, `r2dbc-mysql`                                                 | リアクティブ RDB                |
+| **NoSQL**               | `spring-boot-starter-data-redis`, `spring-boot-starter-data-mongodb`                                        | `spring-boot-starter-data-cassandra`, `dynamodb-enhanced`                         | 分散／キー値ストア                 |
+| **ActiveMQ (必須)**       | `spring-boot-starter-activemq`<br>※Artemis に切替可                                                             | `org.apache.activemq:artemis-jms-client` など                                       | JMS／非同期メッセージング            |
+| **その他 Messaging**       | `spring-boot-starter-amqp`, `spring-kafka`, `spring-boot-starter-pulsar`, `spring-boot-starter-batch`       | —                                                                                 | RabbitMQ／Kafka／Pulsar／バッチ |
+| **Cloud & MS**          | `spring-cloud-starter-gateway`, `spring-cloud-starter-config`, `spring-cloud-starter-netflix-eureka-client` | `spring-cloud-starter-aws`                                                        | API Gateway／設定集中／サービス発見   |
+| **Observability / Ops** | `micrometer-registry-prometheus`, `micrometer-tracing-bridge-otel`                                          | `zipkin-reporter-brave`, `wavefront-spring-boot-starter`                          | メトリクス／分散トレース              |
+| **Testing**             | `spring-boot-starter-test`                                                                                  | `testcontainers-bom`, `spring-restdocs-mockmvc`, `cucumber-java`                  | 単体・統合テスト／API ドキュメント       |
+
+これで **ActiveMQ** が確実に含まれています。
+ほかに必須ライブラリや分類があればお知らせください。
+
 
 
 (メタデータ参照: Spring Initializr Reference Guide) citeturn0search1
