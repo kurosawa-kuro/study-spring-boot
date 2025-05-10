@@ -1,34 +1,6 @@
 # study-spring-boot — Spring Initializr Comprehensive Guide
 
-## 1. Project Metadata (Quick Reference)
 
-| 項目               | 典型値                          | 役割・補足                                                               |
-| ---------------- | ---------------------------- | ------------------------------------------------------------------- |
-| **Project**      | Maven                        | ビルドツール。`pom.xml` が生成される                                             |
-| **Language**     | Java                         | 使用言語。                                                               |
-| **Spring Boot**  | 3.3.x (最新安定版)                | ここで指定した Boot バージョンが **BOM** に反映され、依存ライブラリのバージョンを統一                  |
-| **Group**        | com.example                  | Java の `groupId`。パッケージプレフィクスにも利用                                    |
-| **Artifact**     | demo                         | jar/war ファイル名・`artifactId`                                          |
-| **Name**         | demo                         | アプリ名（`DemoApplication` 等）                                           |
-| **Description**  | Demo project for Spring Boot | README や POM コメントに反映                                                |
-| **Package name** | com.example.demo             | 既定は `Group` + `Artifact`                                            |
-| **Packaging**    | Jar / War                    | *Jar*: 組み込み Tomcat/Netty で `java -jar` 実行<br>*War*: 外部サーブレットコンテナに配備 |
-| **Java**         | 17 (LTS)                     | Initializr UI では 17 / 21 が選択肢 (8/11 は非表示) citeturn0search0       |
-
----
-
-## 2. Dependencies パネル ― UI の使い方
-
-| UI 要素                     | 機能                                              | 補足                                             |
-| ------------------------- | ----------------------------------------------- | ---------------------------------------------- |
-| **Search bar**            | 依存関係をキーワード検索 (部分一致)。スペース区切りで AND 検索             | `/` プレフィクスで *カテゴリ名\:filter* も可                 |
-| **Category グループ**         | Developer Tools / Web / Security … などテーマ別に折りたたみ | 各依存関係は必ず 1 カテゴリに属する citeturn0search1        |
-| **Dependency チップ**        | 緑＝未選択、青＝選択済み。クリックでトグル                           | 選択すると上部 *Selected* パネルに追加                      |
-| **Selected Dependencies** | 現在選択済みの依存関係を一覧 & 削除                             | コード生成時は `dependencies=<id1>,<id2>` として API に渡る |
-
-> **TIP** : 依存関係 ID はそのまま *starter* 名 (`spring-boot-starter-<id>`) に紐付くことが多い。
-
----
 
 ## 3. 依存関係カテゴリ & 代表スターター
 
